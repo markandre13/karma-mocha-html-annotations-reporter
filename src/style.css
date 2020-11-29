@@ -1,0 +1,300 @@
+/*
+ * PAGE LAYOUT
+ */
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-weight:300;
+  font-stretch: normal;
+  font-weight: 300;
+  font-size: 0.75rem;
+  background: #fff;
+  color: #000;
+}
+
+/*
+ * STATS
+ */
+ #mocha-stats {
+  position: fixed;
+  top: 0px;
+  right: 10px;
+  font-size: 12px;
+  margin: 0;
+  color: #888;
+  z-index: 1;
+}
+
+#mocha-stats em {
+  color: black;
+}
+
+#mocha-stats a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#mocha-stats a:hover {
+  border-bottom: 1px solid #eee;
+}
+
+#mocha-stats li {
+  display: inline-block;
+  margin: 0 5px;
+  list-style: none;
+  padding-top: 5px;
+}
+
+#mocha-stats canvas {
+  width: 40px;
+  height: 40px;
+}
+
+/*
+ * REPORT
+ */
+
+/*
+ * duration indicator how long it took the test to run (fast|medium|slow)
+ * class provided via test.speed
+ */
+ 
+#mocha .test.pass .duration {
+  font-size: 9px;
+  margin-left: 5px;
+  padding: 2px 5px;
+  color: #fff;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#mocha .test.pass.fast .duration {
+  display: none;
+}
+
+ #mocha .test.pass.medium .duration {
+  background: #c09853;
+}
+
+#mocha .test.pass.slow .duration {
+  background: #b94a48;
+}
+
+/*
+ * section layout
+ */
+
+#mocha ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+
+#mocha li.suite {
+  /* border-left: 2px #999 solid; */
+  padding: 0;
+  margin: 0;
+}
+
+/* h1 headings are used for suite/section titles */
+#mocha h1 {
+  font-family: "HelveticaNeueMedium", "HelveticaNeue-Medium", "Helvetica Neue Medium", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-stretch: normal;
+  font-size: 1em;
+  font-weight: 200;
+  padding-bottom: 5px;
+  margin: 0 0 0 5px;
+}
+
+#mocha h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#mocha h1 a:hover {
+  text-decoration: underline;
+}
+
+#mocha .suite .suite h1 {
+  margin-top: 0;
+  /* font-size: .8em; */
+}
+
+/* h2 headings are used for test titles */
+#mocha .test h2 {
+  margin: 0;
+  position: relative;
+}
+
+#mocha h2 {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+#mocha h2 span {
+  cursor: pointer;
+}
+
+#mocha h2 span:hover {
+  text-decoration: underline;
+}
+
+div.test {
+  display: inline-block;
+  width: 320px;
+  border: 1px #000 solid;
+}
+
+.test.pass::before {
+  content: '✓'; /* ✓ ✔ */
+  color: #009a44;
+
+  font-size: 12px;
+  display: block;
+  float: left;
+  margin-right: 5px;
+  margin-top: 0;
+  font-size: .8em;
+}
+
+#mocha .test.pending::before {
+  content: '⇢';
+  color: #999999;
+
+  font-size: 12px;
+  display: block;
+  float: left;
+  margin-right: 5px;
+}
+
+#mocha .test.fail::before {
+  content: '✖'; /* ✕ ✖ ✗ ✘ */
+  color: #e4002b;
+
+  font-size: 12px;
+  display: block;
+  float: left;
+  margin-right: 5px;
+}
+
+#mocha .test a.icon {
+  background: #999;
+  color: #fff;
+  opacity: 1.0;
+  margin-left: 5px;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+
+  vertical-align: middle;
+  text-align: center;
+
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+
+  -webkit-transition:opacity 200ms;
+  -moz-transition:opacity 200ms;
+  -o-transition:opacity 200ms;
+  transition: opacity 200ms;
+}
+
+#mocha .test a.replay {
+  font-size: 10px;
+  line-height: 16px;
+}
+
+#mocha .test a.details {
+  font-size: 15px;
+  line-height: 14px;
+}
+
+#mocha .test a.icon:hover {
+  background: #000;
+}
+
+/*
+ * visual
+ */
+
+#mocha ul.visual {
+  margin: 0 0 0 3px;
+  padding: 0;
+}
+
+#mocha ul.visual li {
+  border: 1px solid #000;
+  display: inline-block;
+  margin: 2px;
+}
+
+.popup {
+  display: none;
+  overflow: none;
+  cursor: zoom-out;
+  position: fixed;
+  left: 5px;
+  right: 5px;
+  top: 5px;
+  bottom: 5px;
+  background-color: rgba(204, 204, 204, 0.75);
+  border: 1px solid #eee;
+  border-bottom-color: #ddd;
+  -webkit-box-shadow: 0 1px 3px #eee;
+  -moz-box-shadow: 0 1px 3px #eee;
+  box-shadow: 0 1px 3px #eee;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  z-index: 100;
+}
+
+ #mocha .test pre {
+  display: block;
+  width: auto;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 1);
+  font: 12px/1.5 monaco, monospace;
+  margin: 5px;
+  padding: 15px;
+  border: 1px solid #eee;
+  word-wrap: break-word;
+  border-bottom-color: #ddd;
+  -webkit-box-shadow: 0 1px 3px #eee;
+  -moz-box-shadow: 0 1px 3px #eee;
+  box-shadow: 0 1px 3px #eee;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/*
+ * syntax highlightning
+ */
+#mocha code .comment { color: #888888; }
+#mocha code .init { color: #2f6fad; }
+#mocha code .string { color: #5890ad; }
+#mocha code .keyword { color: #8a6343; }
+#mocha code .number { color: #2f6fad; }
+
+ /*
+  * error
+  */
+#mocha .test pre.error {
+  color: #c00;
+  max-height: 300px;
+  overflow: none;
+}
