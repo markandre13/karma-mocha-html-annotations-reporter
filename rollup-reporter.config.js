@@ -13,6 +13,7 @@ export default {
         commonjs(),
         typescript({
             tsconfig: false,
+            target: "es5",
             jsx: "react",
             jsxFactory: "MochaHtmlAnnotationsReporter.jsx",
             include: [

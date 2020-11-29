@@ -6,6 +6,15 @@ const EVENT_TEST_FAIL = "fail"
 const EVENT_TEST_PASS = "pass"
 const EVENT_TEST_PENDING = "pending"
 
+class HTML {
+    tag: HTMLElement
+    bind: Map<string, Node>
+    constructor(tag: HTMLElement, bind: Map<string, Node>) {
+        this.tag = tag
+        this.bind = bind
+    }
+}
+
 declare global {
     namespace JSX {
         interface IntrinsicElements {
@@ -27,11 +36,6 @@ declare global {
     }
 }
 
-interface HTML {
-    tag: HTMLElement
-    bind: Map<string, HTMLElement>
-}
-
 export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
 
     // static playIcon = '&#x2023;'
@@ -42,7 +46,7 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
     failuresEl: HTMLElement
     duration: HTMLElement
 
-    stack: Array<HTMLElement>
+    stack: Array<Node>
 
     constructor(runner: Mocha.Runner, options: Mocha.MochaOptions) {
         super(runner, options)
@@ -120,7 +124,7 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
         runner.on(EVENT_TEST_PASS, (test: any) => {
             // console.log(`EVENT_TEST_PASS ${test.title} ${test.context}`)
             try {
-                var url = this.testURL(test)
+                const url = this.testURL(test)
 
                 const markup =
                     <li class={`test pass ${test.speed === undefined ? "fast" : test.speed}`}>
@@ -139,13 +143,13 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
                         </div>
                     </li>
 
-                var context = ""
                 if (test.context !== undefined) {  
-                    this.stack[0].classList.add("visual")
+                    (this.stack[0] as HTMLElement).classList.add("visual")
+                    let b = markup.bind.get("b")
                     if (typeof test.context === "string")
-                        markup.bind.get("b").appendChild(document.createTextNode(test.context))
+                        b.appendChild(document.createTextNode(test.context))
                     else
-                        markup.bind.get("b").appendChild(test.context)
+                        b.appendChild(test.context)
                 }
 
                 // something is adding syntax highlightning using <span class="number|comment">
@@ -218,13 +222,13 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
                         </div>
                     </li>
 
-                var context = ""
                 if (test.context !== undefined) {
-                    this.stack[0].classList.add("visual")
+                    (this.stack[0] as HTMLElement).classList.add("visual")
+                    let b = markup.bind.get("b")
                     if (typeof test.context === "string")
-                        markup.bind.get("b").appendChild(document.createTextNode(test.context))
+                        b.appendChild(document.createTextNode(test.context))
                     else
-                        markup.bind.get("b").appendChild(test.context)
+                        b.appendChild(test.context)
                 }
 
                 this.addHTML(markup)
@@ -250,11 +254,11 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
             this.downElement(child)
     }
 
-    addElement(e: HTMLElement) {
+    addElement(e: Node) {
         this.stack[0].appendChild(e)
     }
 
-    downElement(e: HTMLElement) {
+    downElement(e: Node) {
         this.stack.unshift(e)
     }
 
@@ -270,17 +274,17 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
     }
 
     updateStats() {
-        // // // TODO: add to stats
-        // var percent = ((this.stats.tests / this.runner.total) * 100) | 0
-        // // if (progress) {
-        // //   progress.update(percent).draw(ctx);
-        // // }
+        // // TODO: add to stats
+        var percent = ((this.stats.tests / this.runner.total) * 100) | 0
+        // if (progress) {
+        //   progress.update(percent).draw(ctx);
+        // }
 
-        // // update stats
-        // var ms = new Date().getTime() - this.stats.start!!.getTime()!
-        // MochaHtmlAnnotationsReporter.text(this.passes, `${this.stats.passes}`)
-        // MochaHtmlAnnotationsReporter.text(this.failuresEl, `${this.stats.failures}`)
-        // MochaHtmlAnnotationsReporter.text(this.duration, `${(ms / 1000).toFixed(2)}`)
+        // update stats
+        var ms = new Date().getTime() - this.stats.start!!.getTime()!
+        MochaHtmlAnnotationsReporter.text(this.passes, `${this.stats.passes}`)
+        MochaHtmlAnnotationsReporter.text(this.failuresEl, `${this.stats.failures}`)
+        MochaHtmlAnnotationsReporter.text(this.duration, `${(ms / 1000).toFixed(2)}`)
     }
 
     /**
@@ -376,7 +380,7 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
     }
     
     static jsx(name: string, props: any, ...children: any): HTML {
-        let bind = new Map<string, HTMLElement>()
+        let bind = new Map<string, Node>()
         let tag: HTMLElement
         switch (name) {
             case "a":
@@ -400,31 +404,20 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
                 for (let c of props.class.split(' '))
                     tag.classList.add(c)
             }
-            if ('style' in props) {
-                // console.log(`*** GOT STYLE ${props.style}`)
-                tag.style.cssText = props.style
-            }
             if ('onmousedown' in props) {
-                // console.log(`*** GOT ONMOUSEDOWN ${props.onmousedown}`)
                 tag.onmousedown = (mouseEvent) => {
-                    // console.log("### CALLED ONMOUSE DOWN")
                     props.onmousedown(mouseEvent)
                 }
             }
-            if ('id' in props) {
-                tag.id = props.id
-            }
-            if ('tweak' in props) {
-                props.tweak(tag)
-            }
-            if ('bind' in props) {
-                bind.set(props.bind, tag)
-            }
+            if ('style' in props) tag.style.cssText = props.style
+            if ('id' in props) tag.id = props.id
+            if ('tweak' in props) props.tweak(tag)
+            if ('bind' in props) bind.set(props.bind, tag)
         }
-        for (let child of children) {
+        for (const child of children) {
             if (typeof child === "string") {
                 tag.appendChild(document.createTextNode(child))
-            } else
+            } else {   
                 if (child.tag === undefined) {
                     if (child.__html) {
                         const node = document.createElement("div")
@@ -435,16 +428,18 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
                     }
                 } else {
                     tag.appendChild(child.tag)
-                    for (const [key, value] of child.bind) {
+                    child.bind.forEach(function(value, key) {
                         bind.set(key, value)
-                    }
+                    });
+                    // for (const [key, value] of child.bind) {
+                    //     bind.set(key, value)
+                    // }
                 }
+            }
         }
-        return { tag, bind }
+        return new HTML(tag, bind)
     }
 
 }
-
-// mocha['_reporter'] = MochaHtmlAnnotationsReporter;
 
 console.log("=========> MochaHtmlAnnotationsReporter registered")

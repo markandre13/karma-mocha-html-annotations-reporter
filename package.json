@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "karma+mocha html reporter with html annotations",
   "main": "dist/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "npm run build-index && npm run build-reporter && npm run build-style",
     "build-index": "tsc --outDir dist src/index.ts",
