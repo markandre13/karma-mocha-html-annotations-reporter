@@ -1,0 +1,6 @@
+*~
+rollup-reporter.config.js
+tsconfig-index.json
+src/
+test/
+coverage/

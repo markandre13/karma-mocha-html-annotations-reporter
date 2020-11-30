@@ -14,7 +14,7 @@ class KarmaMochaHtmlAnnotationsReporter {
     ) {
         const MOCHA_CORE_PATTERN = /([\\/]karma-mocha[\\/])/i
 
-        console.log("=========> KarmaMochaHtmlAnnotationsReporter created")
+        // console.log("=========> KarmaMochaHtmlAnnotationsReporter created")
 
         baseReporterDecorator(this)
         const files = config.files!
@@ -35,7 +35,7 @@ class KarmaMochaHtmlAnnotationsReporter {
     }
 
     static annotate(test: any, context: string|Element) {
-        console.log("KarmaMochaHtmlAnnotationsReporter.annotate()")
+        // console.log("KarmaMochaHtmlAnnotationsReporter.annotate()")
         const currentTest = test.currentTest
         const activeTest = test.test
         const isEachHook = currentTest && /^"(?:before|after)\seach"/.test(activeTest.title);
@@ -50,4 +50,4 @@ module.exports = {
     'annotate': KarmaMochaHtmlAnnotationsReporter.annotate
 }
 
-console.log("=========> KarmaMochaHtmlAnnotationsReporter registered")
+// console.log("=========> KarmaMochaHtmlAnnotationsReporter registered")

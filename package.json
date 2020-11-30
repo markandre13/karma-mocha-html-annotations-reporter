@@ -2,6 +2,12 @@
   "name": "karma-mocha-html-annotations-reporter",
   "version": "0.0.1",
   "description": "karma+mocha html reporter with html annotations",
+  "author": "Mark-André Hopf <mhopf@mark13.org>",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markandre13/karma-mocha-html-annotations-reporter.git"
+  },
   "main": "dist/index.js",
   "types": "index.d.ts",
   "scripts": {
@@ -10,8 +16,6 @@
     "build-reporter": "rollup --config rollup-reporter.config.js",
     "build-style": "copyfiles -u 1 src/style.css dist"
   },
-  "author": "mhopf@mark13.org",
-  "license": "CC0-1.0",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-multi-entry": "^4.0.0",

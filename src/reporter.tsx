@@ -51,7 +51,7 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
     constructor(runner: Mocha.Runner, options: Mocha.MochaOptions) {
         super(runner, options)
 
-        console.log("=========> MochaHtmlAnnotationsReporter created")
+        // console.log("=========> MochaHtmlAnnotationsReporter created")
 
         var self = this
 
@@ -442,4 +442,4 @@ export class MochaHtmlAnnotationsReporter extends Mocha.reporters.Base {
 
 }
 
-console.log("=========> MochaHtmlAnnotationsReporter registered")
+// console.log("=========> MochaHtmlAnnotationsReporter registered")
