@@ -1,6 +1,7 @@
 *~
 rollup-reporter.config.js
 tsconfig-index.json
+screenshot.png
 src/
 test/
 coverage/
